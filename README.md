@@ -1,5 +1,5 @@
 # WebGL-Unity-AWS-CD#
-## Uses 3 AWS services (free tier works) to continuosly deploy off of Unity's CI integration with github. Sorry it's so complicated :D ##
+## Uses 3 AWS services (free tier works) to continuosly deploy off of Unity's CI integration with github. Sorry it's so complicated :D. You need AWS Lambda/S3/API Gateway, and use CI with Unity/Github##
 ### Lambda (running this script) ###
 Simply edit the script.py file with your AWS S3 key, Secret key, bucket name, and unity API key. The zip up this entire repo, and upload to AWS Lambda. Make sure you select python 2.7 (3 not supported yet), and make sure the handler is script.lambda_handler
 ### API Gateway ###
