@@ -4,7 +4,8 @@
 Simply edit the script.py file with your AWS S3 key, Secret key, bucket name, and unity API key. The zip up this entire repo, and upload to AWS Lambda. Make sure you select python 2.7 (3 not supported yet), and make sure the handler is script.lambda_handler
 ### API Gateway ###
 Definately the hardest to configure. Create a Post at the root level, and configure that post's intergration Request (Should use the lambda we created). For the body mapping template, create a new one for "application/json", and paste this as the template body: 
-`##  See http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
+```
+##  See http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
 ##  This template will pass through all parameters including path, querystring, header, stage variables, and context through to the integration endpoint via the body/payload
 #set($allParams = $input.params())
 {
@@ -47,9 +48,10 @@ Definately the hardest to configure. Create a Post at the root level, and config
     "resource-id" : "$context.resourceId",
     "resource-path" : "$context.resourcePath"
     }
-}`
+}
+```
 After that, you're all set here
-### S3 (hosting the files)### 
+### S3 (hosting the files) ### 
 Just need to set up a bucket, and make that bucket public. You can upload the files, then make the files all public, or you can change the permissions to the files to have Read access by everyone
-### Unity Cloud Build### 
+### Unity Cloud Build ### 
 Configure a web hook on Unity Cloud build on successful build to the API root that you created on AWS API Gateway (to the post reciever configured on API Gateway, and with application/json as the payload)
