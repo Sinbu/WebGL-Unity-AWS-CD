@@ -7,7 +7,7 @@ import os
 
 def lambda_handler(event, context):
 	conn = tinys3.Connection(S3_ACCESS_KEY,S3_SECRET_KEY)
-	tokenId = "Basic" + UNITY_API_KEY
+	tokenId = "Basic " + UNITY_API_KEY
 	s3bucket = S3_BUCKET_NAME
 	print event
 	buildLink = event["links"]["api_self"]["href"]
@@ -27,7 +27,7 @@ def lambda_handler(event, context):
 	for filename in files:
 		f = open("/tmp/WebGL build/Build/" + filename,'rb')
 		conn.upload("Build/" + filename,f,s3bucket)
-	files = os.listdir("tmp/WebGL build/TemplateData")
+	files = os.listdir("/tmp/WebGL build/TemplateData")
 	for filename in files:
 		f = open("/tmp/WebGL build/TemplateData/" + filename,'rb')
 		conn.upload("TemplateData/" + filename,f,s3bucket)
