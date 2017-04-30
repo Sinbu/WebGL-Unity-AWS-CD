@@ -20,16 +20,20 @@ def lambda_handler(event, context):
 	zip = zipfile.ZipFile(StringIO.StringIO(results.content))
 	zip.extractall("/tmp/")
 
-	f = open("/tmp/WebGL build/index.html",'rb')
+	dirName = os.listdir("/tmp/")[0]
+	print dirName
+	baseDir = "/tmp/" + dirName
+
+	f = open(baseDir + "/index.html",'rb') 
 	conn.upload('index.html',f,s3bucket)
 
-	files = os.listdir("/tmp/WebGL build/Build")
+	files = os.listdir(baseDir + "/Build") 
 	for filename in files:
-		f = open("/tmp/WebGL build/Build/" + filename,'rb')
-		conn.upload("Build/" + filename,f,s3bucket)
-	files = os.listdir("/tmp/WebGL build/TemplateData")
+		f = open(baseDir + "/Build/" + filename,'rb') 
+		conn.upload("Build/" + filename,f,s3bucket) 
+	files = os.listdir(baseDir + "/TemplateData") 
 	for filename in files:
-		f = open("/tmp/WebGL build/TemplateData/" + filename,'rb')
+		f = open(baseDir + "/TemplateData/" + filename,'rb') 
 		conn.upload("TemplateData/" + filename,f,s3bucket)
 
 	return "Done"
